@@ -114,7 +114,6 @@ function removeLineItem(index) {
 function updateLineItem(index, field, value) {
     if (lineItems[index]) {
         lineItems[index][field] = value;
-        renderLineItems(); // Re-render to update the amount column
         updatePreview();
     }
 }
