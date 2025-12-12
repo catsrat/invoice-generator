@@ -653,25 +653,8 @@ function displayUserProfile() {
 
     const header = document.querySelector('.header')
 
-    // Create user profile section
-    const userProfile = document.createElement('div')
-    userProfile.className = 'user-profile'
-    userProfile.innerHTML = `
-        <img src="${currentUser.user_metadata.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.user_metadata.full_name || currentUser.email)}"
-             alt="User avatar"
-             class="user-avatar" />
-        <div class="user-info">
-            <div class="user-name">${currentUser.user_metadata.full_name || 'User'}</div>
-            <div class="user-email">${currentUser.email}</div>
-        </div>
-        <button class="btn-logout" id="logoutBtn">Logout</button>
-    `
-
-    // Insert after header
-    header.after(userProfile)
-
-    // Add logout handler
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout)
+    // User profile display removed for cleaner interface
+    // Users can access business profile via the button in the invoice form header
 }
 
 async function handleLogout() {
