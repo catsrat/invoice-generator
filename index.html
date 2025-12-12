@@ -28,23 +28,31 @@
           <!-- Business Information -->
           <div class="form-group">
             <label class="form-label">Your Business Name</label>
-            <input type="text" id="businessName" class="form-input" placeholder="Acme Corporation" required />
+            <input type="text" id="businessName" class="form-input" placeholder="Acme Corporation" required readonly />
+            <small style="color: var(--text-tertiary);">Auto-filled from business profile</small>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">GST Number</label>
+            <input type="text" id="gstNumber" class="form-input" placeholder="33HLUPD4834B1Z5" readonly />
+            <small style="color: var(--text-tertiary);">Auto-filled from business profile</small>
           </div>
 
           <div class="form-group">
             <label class="form-label">Your Business Address</label>
             <textarea id="businessAddress" class="form-textarea"
-              placeholder="123 Business St&#10;City, State 12345&#10;Country" rows="3"></textarea>
+              placeholder="123 Business St&#10;City, State 12345&#10;Country" rows="3" readonly></textarea>
+            <small style="color: var(--text-tertiary);">Auto-filled from business profile</small>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input type="email" id="businessEmail" class="form-input" placeholder="hello@acme.com" />
+              <input type="email" id="businessEmail" class="form-input" placeholder="hello@acme.com" readonly />
             </div>
             <div class="form-group">
               <label class="form-label">Phone</label>
-              <input type="tel" id="businessPhone" class="form-input" placeholder="+1 (555) 123-4567" />
+              <input type="tel" id="businessPhone" class="form-input" placeholder="+1 (555) 123-4567" readonly />
             </div>
           </div>
 

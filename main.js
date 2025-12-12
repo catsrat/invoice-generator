@@ -16,11 +16,15 @@ let lineItems = [];
 let currentCurrency = 'INR';
 let signatureDataUrl = null;
 let currentUser = null;
+let businessProfile = null; // Store loaded business profile
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', async () => {
     // Check authentication first
     await checkAuth();
+
+    // Load business profile
+    await loadBusinessProfile();
 
     initializeApp();
     setupEventListeners();
@@ -606,7 +610,48 @@ async function handleLogout() {
         // Redirect to login page
         window.location.href = '/login.html'
     } catch (error) {
-        console.error('Error logging out:', error)
-        showNotification('Failed to logout', 'error')
+        console.error('Logout error:', error)
+    }
+}
+
+// Load business profile from Supabase
+async function loadBusinessProfile() {
+    if (!currentUser) return;
+
+    try {
+        const { data, error } = await supabase
+            .from('business_profiles')
+            .select('*')
+            .eq('user_id', currentUser.id)
+            .single();
+
+        if (error && error.code !== 'PGRST116') throw error;
+
+        if (!data) {
+            // No profile found, redirect to setup
+            showNotification('Please set up your business profile first', 'info');
+            setTimeout(() => {
+                window.location.href = '/business-profile.html';
+            }, 2000);
+            return;
+        }
+
+        businessProfile = data;
+
+        // Auto-fill business details
+        if (data.company_name) document.getElementById('businessName').value = data.company_name;
+        if (data.gst_number) document.getElementById('gstNumber').value = data.gst_number;
+        if (data.billing_address) document.getElementById('businessAddress').value = data.billing_address;
+        if (data.email) document.getElementById('businessEmail').value = data.email;
+        if (data.phone) document.getElementById('businessPhone').value = data.phone;
+
+        // Store logo and UPI QR for invoice preview
+        if (data.company_logo_url) {
+            // Will be used in invoice preview
+        }
+
+        updatePreview();
+    } catch (error) {
+        console.error('Error loading business profile:', error);
     }
 }
