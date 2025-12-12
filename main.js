@@ -132,7 +132,7 @@ function renderLineItems() {
                     class="form-input" 
                     placeholder="Item description" 
                     value="${item.description || ''}"
-                    onchange="updateLineItem(${index}, 'description', this.value)"
+                    oninput="updateLineItem(${index}, 'description', this.value)"
                 />
             </td>
             <td>
@@ -141,7 +141,7 @@ function renderLineItems() {
                     class="form-input" 
                     placeholder="HSN/SAC" 
                     value="${item.hsn || ''}"
-                    onchange="updateLineItem(${index}, 'hsn', this.value)"
+                    oninput="updateLineItem(${index}, 'hsn', this.value)"
                 />
             </td>
             <td>
@@ -152,7 +152,7 @@ function renderLineItems() {
                     min="0"
                     step="1"
                     value="${item.quantity || 1}"
-                    onchange="updateLineItem(${index}, 'quantity', parseFloat(this.value) || 0)"
+                    oninput="updateLineItem(${index}, 'quantity', parseFloat(this.value) || 0)"
                 />
             </td>
             <td>
@@ -163,7 +163,7 @@ function renderLineItems() {
                     min="0"
                     step="0.01"
                     value="${item.rate || 0}"
-                    onchange="updateLineItem(${index}, 'rate', parseFloat(this.value) || 0)"
+                    oninput="updateLineItem(${index}, 'rate', parseFloat(this.value) || 0)"
                 />
             </td>
             <td style="text-align: right; padding-right: var(--space-md);">
