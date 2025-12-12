@@ -687,38 +687,51 @@ async function handleLogout() {
 
 // Load business profile from Supabase
 async function loadBusinessProfile() {
-    if (!currentUser) return;
-
     try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+
         const { data, error } = await supabase
             .from('business_profiles')
             .select('*')
-            .eq('user_id', currentUser.id)
+            .eq('user_id', session.user.id)
             .single();
 
         if (error && error.code !== 'PGRST116') throw error;
+        if (!data) return;
 
-        if (!data) {
-            // No profile found, redirect to setup
-            showNotification('Please set up your business profile first', 'info');
-            setTimeout(() => {
-                window.location.href = '/business-profile.html';
-            }, 2000);
-            return;
+        // Auto-fill business information
+        document.getElementById('businessName').value = data.company_name || '';
+        document.getElementById('gstNumber').value = data.gst_number || '';
+        document.getElementById('businessAddress').value = data.billing_address || '';
+        document.getElementById('businessEmail').value = data.email || '';
+        document.getElementById('businessPhone').value = data.phone || '';
+
+        // Auto-fill bank details
+        document.getElementById('bankName').value = data.bank_name || '';
+        document.getElementById('bankAccount').value = data.bank_account_number || '';
+        document.getElementById('bankIfsc').value = data.bank_ifsc_code || '';
+        document.getElementById('bankBranch').value = data.bank_branch || '';
+
+        // Load logo
+        if (data.company_logo_url) {
+            const logoPreview = document.getElementById('previewLogo');
+            logoPreview.src = data.company_logo_url;
+            logoPreview.style.display = 'block';
         }
 
-        businessProfile = data;
+        // Load UPI QR
+        if (data.upi_qr_code_url) {
+            const upiQr = document.getElementById('previewUpiQr');
+            upiQr.src = data.upi_qr_code_url;
+            upiQr.style.display = 'block';
+            document.getElementById('paymentSection').style.display = 'block';
+        }
 
-        // Auto-fill business details
-        if (data.company_name) document.getElementById('businessName').value = data.company_name;
-        if (data.gst_number) document.getElementById('gstNumber').value = data.gst_number;
-        if (data.billing_address) document.getElementById('businessAddress').value = data.billing_address;
-        if (data.email) document.getElementById('businessEmail').value = data.email;
-        if (data.phone) document.getElementById('businessPhone').value = data.phone;
-
-        // Store logo and UPI QR for invoice preview
-        if (data.company_logo_url) {
-            // Will be used in invoice preview
+        // Load signature from business profile
+        if (data.signature_url) {
+            signatureDataUrl = data.signature_url;
+            updateSignaturePreview();
         }
 
         updatePreview();
