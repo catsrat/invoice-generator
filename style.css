@@ -978,12 +978,20 @@ body::before {
   .invoice-preview {
     box-shadow: none;
     border: none;
-    padding: 0;
+    padding: 20px !important;
     min-height: auto;
+    max-height: none !important;
+    overflow: visible !important;
     page-break-inside: avoid;
   }
 
-  /* Prevent page breaks within invoice sections */
+  /* Ensure logo is visible */
+  #previewLogo {
+    display: block !important;
+    margin: 0 auto 20px !important;
+  }
+
+  /* Ensure all sections are visible */
   .invoice-header,
   .invoice-details,
   .invoice-items,
@@ -991,6 +999,7 @@ body::before {
   #paymentSection,
   .invoice-signature {
     page-break-inside: avoid;
+    display: block !important;
   }
 
   /* Optimize spacing for single page */
