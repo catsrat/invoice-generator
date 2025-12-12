@@ -746,12 +746,13 @@ body::before {
 .invoice-preview {
   background: white;
   color: #1a1a1a;
-  padding: var(--space-3xl);
+  padding: var(--space-xl);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   min-height: 600px;
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .invoice-header {
@@ -812,12 +813,13 @@ body::before {
 .invoice-items {
   margin: var(--space-2xl) 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .invoice-items-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 .invoice-items-table thead {
