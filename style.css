@@ -349,7 +349,9 @@ body::before {
   }
 
   .form-group textarea {
-    min-height: 80px;
+    min-height: 60px !important;
+    max-height: 60px;
+    rows: 2;
   }
 
   /* Buttons */
@@ -365,6 +367,18 @@ body::before {
     gap: var(--space-sm);
   }
 
+  /* Action buttons at bottom */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+  }
+
   /* Line items table */
   .line-items-table {
     font-size: 0.75rem;
@@ -372,7 +386,7 @@ body::before {
 
   .line-items-table th,
   .line-items-table td {
-    padding: var(--space-sm);
+    padding: var(--space-xs);
   }
 
   .line-items-table input {
@@ -380,19 +394,19 @@ body::before {
     padding: var(--space-xs) var(--space-sm);
   }
 
-  /* Hide less important columns on very small screens */
-  .line-items-table th:nth-child(1),
-  .line-items-table td:nth-child(1) {
-    display: none;
+  /* Simplify table on mobile - hide action column */
+  .line-items-table th:last-child,
+  .line-items-table td:last-child {
+    width: 30px;
   }
 
   /* Invoice preview */
   .invoice-preview {
-    padding: var(--space-lg);
+    padding: var(--space-md);
   }
 
   .invoice-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .invoice-meta {
@@ -423,19 +437,19 @@ body::before {
 
   /* Login page mobile */
   .login-container {
-    padding: var(--space-lg);
+    padding: var(--space-md);
   }
 
   .login-card {
-    padding: var(--space-xl);
+    padding: var(--space-lg);
   }
 
   .login-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .login-subtitle {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   .login-features {
@@ -448,6 +462,25 @@ body::before {
     left: var(--space-md);
     right: var(--space-md);
     width: auto;
+  }
+
+  /* Card adjustments */
+  .card {
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .card-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+
+  /* Horizontal rules */
+  hr {
+    margin: var(--space-md) 0 !important;
   }
 }
 
