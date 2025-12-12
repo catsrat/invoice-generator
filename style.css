@@ -684,6 +684,8 @@ body::before {
   margin-top: var(--space-lg);
   border-collapse: separate;
   border-spacing: 0;
+  table-layout: fixed;
+  /* Force column widths to be respected */
 }
 
 .line-items-table th {
