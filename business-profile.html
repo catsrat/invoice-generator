@@ -137,6 +137,38 @@
                         <input type="text" id="bankBranch" class="form-input" placeholder="THIRUVANMIYUR BRANCH" />
                     </div>
 
+                    <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+                    <!-- Signature/Stamp Upload -->
+                    <h3 style="font-size: 1.125rem; margin-bottom: var(--space-lg); color: var(--primary-300);">
+                        Signature / Stamp</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Signature / Stamp (Optional)</label>
+                        <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                            <input type="file" id="signatureUpload" accept="image/png, image/jpeg, image/jpg"
+                                style="display: none;" />
+                            <button type="button" class="btn btn-secondary"
+                                onclick="document.getElementById('signatureUpload').click()"
+                                style="width: fit-content;">
+                                📁 Upload Signature/Stamp
+                            </button>
+                            <div id="signaturePreviewContainer" style="display: none;">
+                                <div
+                                    style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-lg); border: 1px solid var(--border-primary);">
+                                    <img id="signaturePreview" src="" alt="Signature preview"
+                                        style="max-width: 150px; max-height: 80px; object-fit: contain; border-radius: var(--radius-md);" />
+                                    <button type="button" class="btn btn-sm" onclick="removeSignature()"
+                                        style="background: var(--error-500); color: white; margin-left: auto;">
+                                        ✕ Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <small style="color: var(--text-tertiary);">PNG or JPG, max 500KB. This will appear on all
+                                your invoices.</small>
+                        </div>
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="action-buttons" style="margin-top: var(--space-2xl);">
                         <button type="submit" class="btn btn-primary" id="saveProfileBtn">

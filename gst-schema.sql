@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.business_profiles (
   bank_account_number text,
   bank_ifsc_code text,
   bank_branch text,
+  signature_url text,
   
   -- Timestamps
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,

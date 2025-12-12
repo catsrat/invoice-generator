@@ -5,6 +5,7 @@ checkAuth()
 
 let logoDataUrl = null
 let upiQrDataUrl = null
+let signatureDataUrl = null
 let currentUser = null
 
 async function checkAuth() {
@@ -52,6 +53,12 @@ async function loadExistingProfile() {
         if (data.upi_qr_code_url) {
             upiQrDataUrl = data.upi_qr_code_url
             displayUpiQr()
+        }
+
+        // Load signature if exists
+        if (data.signature_url) {
+            signatureDataUrl = data.signature_url
+            displaySignature()
         }
     } catch (error) {
         console.error('Error loading profile:', error)
@@ -138,6 +145,46 @@ window.removeUpiQr = function () {
     document.getElementById('upiQrUpload').value = ''
 }
 
+// Signature upload handling
+document.getElementById('signatureUpload').addEventListener('change', async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.match(/^image\/(png|jpeg|jpg)$/)) {
+        showNotification('Please upload a PNG or JPG image', 'error')
+        return
+    }
+
+    // Validate file size (500KB)
+    if (file.size > 500 * 1024) {
+        showNotification('Image size must be less than 500KB', 'error')
+        return
+    }
+
+    // Convert to base64
+    const reader = new FileReader()
+    reader.onload = (event) => {
+        signatureDataUrl = event.target.result
+        displaySignature()
+        showNotification('Signature uploaded successfully!', 'success')
+    }
+    reader.readAsDataURL(file)
+})
+
+function displaySignature() {
+    const preview = document.getElementById('signaturePreview')
+    const container = document.getElementById('signaturePreviewContainer')
+    preview.src = signatureDataUrl
+    container.style.display = 'block'
+}
+
+window.removeSignature = function () {
+    signatureDataUrl = null
+    document.getElementById('signaturePreviewContainer').style.display = 'none'
+    document.getElementById('signatureUpload').value = ''
+}
+
 // Form submission
 document.getElementById('businessProfileForm').addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -158,7 +205,8 @@ document.getElementById('businessProfileForm').addEventListener('submit', async 
         bank_name: document.getElementById('bankName').value || null,
         bank_account_number: document.getElementById('bankAccountNumber').value || null,
         bank_ifsc_code: document.getElementById('bankIfscCode').value || null,
-        bank_branch: document.getElementById('bankBranch').value || null
+        bank_branch: document.getElementById('bankBranch').value || null,
+        signature_url: signatureDataUrl
     }
 
     try {
