@@ -304,6 +304,22 @@ function updatePreview() {
         }
     }
 
+    // Terms and Conditions
+    const terms = document.getElementById('terms').value;
+    const termsSection = document.getElementById('previewTermsSection');
+    if (termsSection) {
+        if (terms) {
+            termsSection.style.display = 'block';
+            const termsList = terms.split('\n').filter(line => line.trim());
+            const termsHtml = termsList.map((term, index) =>
+                `<div style="margin-bottom: var(--space-xs);">${index + 1}. ${term}</div>`
+            ).join('');
+            document.getElementById('previewTerms').innerHTML = termsHtml;
+        } else {
+            termsSection.style.display = 'none';
+        }
+    }
+
     // Signature
     updateSignaturePreview();
 }
@@ -317,12 +333,12 @@ function updatePreviewLineItems() {
     }
 
     const gstRate = 5.0;
-    
+
     tbody.innerHTML = lineItems.map((item, index) => {
         const taxableValue = (item.quantity || 0) * (item.rate || 0);
         const taxAmount = (taxableValue * gstRate) / 100;
         const totalAmount = taxableValue + taxAmount;
-        
+
         return `
         <tr>
           <td style="text-align: center;">${index + 1}</td>

@@ -180,6 +180,12 @@
               placeholder="Payment is due within 30 days. Thank you for your business!" rows="3"></textarea>
           </div>
 
+          <div class="form-group">
+            <label class="form-label">Terms and Conditions</label>
+            <textarea id="terms" class="form-input" placeholder="Enter your terms and conditions (one per line)"
+              rows="5"></textarea>
+          </div>
+
           <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
 
           <!-- Signature/Stamp Upload -->
@@ -347,7 +353,14 @@
             <p id="previewNotes"></p>
           </div>
 
-          <!-- Payment Section -->
+          <!-- Terms and Conditions -->
+          <div class="invoice-terms" id="previewTermsSection" style="display: none; margin-top: var(--space-xl);">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-md); color: #1a1a1a;">Terms and
+              Conditions:</h3>
+            <div id="previewTerms" style="font-size: 0.875rem; line-height: 1.6; color: #4b5563;"></div>
+          </div>
+
+          <!-- Payment Information -->
           <div id="paymentSection"
             style="display: none; margin-top: var(--space-2xl); padding: var(--space-xl); border-top: 2px solid var(--border-primary);">
             <h3 style="font-size: 1rem; margin-bottom: var(--space-lg);">Payment Information
