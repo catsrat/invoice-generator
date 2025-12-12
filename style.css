@@ -684,7 +684,6 @@ body::before {
   margin-top: var(--space-lg);
   border-collapse: separate;
   border-spacing: 0;
-  table-layout: fixed;
   /* Force column widths to be respected */
 }
 
@@ -698,6 +697,7 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-bottom: 2px solid var(--border-primary);
+  white-space: nowrap;
 }
 
 .line-items-table th:first-child {
@@ -727,6 +727,7 @@ body::before {
 
 .line-items-table input {
   width: 100%;
+  min-width: 80px;
   padding: var(--space-sm);
   background: var(--bg-primary);
   border: 1px solid var(--border-primary);
