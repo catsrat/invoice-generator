@@ -209,9 +209,15 @@
         </div>
 
         <div class="invoice-preview" id="invoicePreview">
+          <!-- Logo Section -->
+          <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <img id="previewLogo" src="" alt="Company Logo"
+              style="max-width: 150px; max-height: 80px; display: none; margin: 0 auto;" />
+          </div>
+
           <div class="invoice-header">
             <div>
-              <h1 class="invoice-title">INVOICE</h1>
+              <h1 class="invoice-title">TAX INVOICE</h1>
             </div>
             <div class="invoice-number">
               <div class="invoice-number-label">Invoice Number</div>
@@ -224,6 +230,7 @@
               <h3>From</h3>
               <div id="previewBusinessInfo">
                 <p><strong id="previewBusinessName">Your Business Name</strong></p>
+                <p id="previewGstNumber" style="font-size: 0.875rem; color: var(--text-secondary); display: none;"></p>
                 <p id="previewBusinessAddress" style="white-space: pre-line;">Your Business Address</p>
                 <p id="previewBusinessEmail"></p>
                 <p id="previewBusinessPhone"></p>
@@ -234,9 +241,12 @@
               <h3>Bill To</h3>
               <div id="previewClientInfo">
                 <p><strong id="previewClientName">Client Name</strong></p>
+                <p id="previewCustomerGstin" style="font-size: 0.875rem; color: var(--text-secondary); display: none;">
+                </p>
                 <p id="previewClientAddress" style="white-space: pre-line;">Client Address</p>
                 <p id="previewClientEmail"></p>
                 <p id="previewClientPhone"></p>
+                <p id="previewPlaceOfSupply" style="font-size: 0.875rem; font-weight: 600; display: none;"></p>
               </div>
             </div>
           </div>
@@ -294,6 +304,41 @@
           <div class="invoice-notes" id="previewNotesSection" style="display: none;">
             <h3>Notes</h3>
             <p id="previewNotes"></p>
+          </div>
+
+          <!-- Payment Section -->
+          <div id="paymentSection"
+            style="display: none; margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--bg-tertiary); border-radius: var(--radius-lg); border: 1px solid var(--border-primary);">
+            <h3 style="font-size: 1rem; margin-bottom: var(--space-lg); color: var(--primary-300);">Payment Information
+            </h3>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-2xl);">
+              <div class="upi-qr-section">
+                <p style="font-size: 0.875rem; font-weight: 600; margin-bottom: var(--space-sm);">Pay using UPI:</p>
+                <img id="previewUpiQr" src="" alt="UPI QR Code"
+                  style="max-width: 150px; max-height: 150px; border: 2px solid var(--border-primary); border-radius: var(--radius-md); display: none;" />
+              </div>
+              <div class="bank-details-section">
+                <p style="font-size: 0.875rem; font-weight: 600; margin-bottom: var(--space-sm);">Bank Details:</p>
+                <table style="width: 100%; font-size: 0.875rem;">
+                  <tr>
+                    <td style="padding: var(--space-xs) 0; color: var(--text-secondary); width: 30%;">Bank:</td>
+                    <td id="previewBankName" style="padding: var(--space-xs) 0;"></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: var(--space-xs) 0; color: var(--text-secondary);">Account #:</td>
+                    <td id="previewBankAccount" style="padding: var(--space-xs) 0;"></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: var(--space-xs) 0; color: var(--text-secondary);">IFSC Code:</td>
+                    <td id="previewBankIfsc" style="padding: var(--space-xs) 0;"></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: var(--space-xs) 0; color: var(--text-secondary);">Branch:</td>
+                    <td id="previewBankBranch" style="padding: var(--space-xs) 0;"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
           </div>
 
           <!-- Signature Section -->
