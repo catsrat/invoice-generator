@@ -13,8 +13,24 @@
 <body>
   <div class="container">
     <header class="header">
-      <h1>Invoice Generator</h1>
-      <p id="headerSubtitle">Create professional invoices in seconds</p>
+      <div>
+        <h1 class="header-title">Invoice Generator</h1>
+        <p class="header-subtitle" id="headerSubtitle">Create professional invoices in seconds</p>
+      </div>
+      <div class="user-profile" id="userProfile" style="display: none;">
+        <img id="userAvatar" src="" alt="User" class="user-avatar" />
+        <div class="user-info">
+          <div class="user-name" id="userName">User Name</div>
+          <div class="user-email" id="userEmail">user@example.com</div>
+        </div>
+        <div class="user-actions">
+          <button class="btn btn-sm btn-secondary" onclick="window.location.href='/business-profile.html'"
+            style="margin-right: var(--space-sm);">
+            ⚙️ Business Profile
+          </button>
+          <button class="btn btn-sm" id="logoutBtn">Logout</button>
+        </div>
+      </div>
     </header>
 
     <div class="main-layout">
