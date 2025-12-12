@@ -1000,7 +1000,7 @@ body::before {
     margin: 0 auto 5px !important;
   }
 
-  /* Ensure all sections are visible */
+  /* Ensure all sections allow page breaks if needed, but prefer avoiding */
   .invoice-header,
   .invoice-details,
   .invoice-items,
@@ -1009,7 +1009,6 @@ body::before {
   .invoice-signature,
   .invoice-terms {
     page-break-inside: avoid;
-    display: block !important;
   }
 
   /* Minimal spacing for single page */

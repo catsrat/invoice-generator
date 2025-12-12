@@ -365,13 +365,14 @@
             style="display: none; margin-top: var(--space-2xl); padding: var(--space-xl); border-top: 2px solid var(--border-primary);">
             <h3 style="font-size: 1rem; margin-bottom: var(--space-lg);">Payment Information
             </h3>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-2xl);">
-              <div class="upi-qr-section">
+            <!-- UPI QR -->
+            <div style="display: flex; gap: var(--space-2xl);" class="payment-info">
+              <div style="flex-shrink: 0;">
                 <p style="font-size: 0.875rem; font-weight: 600; margin-bottom: var(--space-sm);">Pay using UPI:</p>
                 <img id="previewUpiQr" src="" alt="UPI QR Code"
-                  style="max-width: 150px; max-height: 150px; border: 2px solid var(--border-primary); border-radius: var(--radius-md); display: none;" />
+                  style="max-width: 80px; max-height: 80px; display: none; border: 1px solid var(--border-primary); border-radius: var(--radius-md); padding: var(--space-xs);" />
               </div>
-              <div class="bank-details-section">
+              <div class="bank-details-section" id="bankDetailsSection">
                 <p style="font-size: 0.875rem; font-weight: 600; margin-bottom: var(--space-sm);">Bank Details:</p>
                 <table style="width: 100%; font-size: 0.875rem;">
                   <tr>

@@ -265,24 +265,37 @@ function updatePreview() {
         }
 
         // UPI QR and Bank Details
+        // UPI QR and Bank Details
         const paymentSection = document.getElementById('paymentSection');
         if (paymentSection && (businessProfile.upi_qr_code_url || businessProfile.bank_name)) {
             paymentSection.style.display = 'block';
 
             // UPI QR
             const upiQrElement = document.getElementById('previewUpiQr');
-            if (upiQrElement && businessProfile.upi_qr_code_url) {
-                upiQrElement.src = businessProfile.upi_qr_code_url;
-                upiQrElement.style.display = 'block';
+            if (upiQrElement) {
+                if (businessProfile.upi_qr_code_url) {
+                    upiQrElement.src = businessProfile.upi_qr_code_url;
+                    upiQrElement.style.display = 'block';
+                } else {
+                    upiQrElement.style.display = 'none';
+                }
             }
 
-            // Bank Details
-            if (businessProfile.bank_name) {
-                document.getElementById('previewBankName').textContent = businessProfile.bank_name || '';
-                document.getElementById('previewBankAccount').textContent = businessProfile.bank_account_number || '';
-                document.getElementById('previewBankIfsc').textContent = businessProfile.bank_ifsc_code || '';
-                document.getElementById('previewBankBranch').textContent = businessProfile.bank_branch || '';
+            // Bank Details setup
+            const bankDetailsSection = document.getElementById('bankDetailsSection');
+            if (bankDetailsSection) {
+                if (businessProfile.bank_name) {
+                    bankDetailsSection.style.display = 'block';
+                    document.getElementById('previewBankName').textContent = businessProfile.bank_name || '';
+                    document.getElementById('previewBankAccount').textContent = businessProfile.bank_account_number || '';
+                    document.getElementById('previewBankIfsc').textContent = businessProfile.bank_ifsc_code || '';
+                    document.getElementById('previewBankBranch').textContent = businessProfile.bank_branch || '';
+                } else {
+                    bankDetailsSection.style.display = 'none';
+                }
             }
+        } else if (paymentSection) {
+            paymentSection.style.display = 'none';
         }
     }
 
