@@ -334,49 +334,44 @@ function updatePreviewLineItems() {
 }
 
 function updateTotals() {
-    // Calculate subtotal
+    // Calculate subtotal (taxable amount)
     const subtotal = lineItems.reduce((sum, item) => {
         return sum + ((item.quantity || 0) * (item.rate || 0));
     }, 0);
 
-    // Get tax and discount rates
-    const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-    const discountRate = parseFloat(document.getElementById('discountRate').value) || 0;
+    // GST calculation (default 5% IGST for now)
+    const gstRate = 5.0; // Can be made configurable later
+    const gstAmount = (subtotal * gstRate) / 100;
 
-    // Calculate discount
-    const discountAmount = subtotal * (discountRate / 100);
-    const afterDiscount = subtotal - discountAmount;
+    // Calculate total before rounding
+    const totalBeforeRound = subtotal + gstAmount;
 
-    // Calculate tax
-    const taxAmount = afterDiscount * (taxRate / 100);
+    // Round off to nearest rupee
+    const roundedTotal = Math.round(totalBeforeRound);
+    const roundOff = roundedTotal - totalBeforeRound;
 
-    // Calculate total
-    const total = afterDiscount + taxAmount;
+    // Amount paid (can be made editable later)
+    const amountPaid = 0;
+    const amountPayable = roundedTotal - amountPaid;
 
-    // Update preview
+    // Update display
     document.getElementById('previewSubtotal').textContent = formatCurrency(subtotal);
 
-    // Show/hide discount row
-    const discountRow = document.getElementById('previewDiscountRow');
-    if (discountRate > 0) {
-        discountRow.style.display = 'flex';
-        document.getElementById('previewDiscountPercent').textContent = discountRate.toFixed(2);
-        document.getElementById('previewDiscount').textContent = '-' + formatCurrency(discountAmount);
-    } else {
-        discountRow.style.display = 'none';
-    }
+    // Show IGST by default (can be changed to CGST/SGST based on place of supply)
+    document.getElementById('previewIgstRow').style.display = 'flex';
+    document.getElementById('previewIgstRate').textContent = gstRate.toFixed(1);
+    document.getElementById('previewIgst').textContent = formatCurrency(gstAmount);
 
-    // Show/hide tax row
-    const taxRow = document.getElementById('previewTaxRow');
-    if (taxRate > 0) {
-        taxRow.style.display = 'flex';
-        document.getElementById('previewTaxPercent').textContent = taxRate.toFixed(2);
-        document.getElementById('previewTax').textContent = formatCurrency(taxAmount);
-    } else {
-        taxRow.style.display = 'none';
-    }
+    // Hide CGST/SGST for now
+    const cgstRow = document.getElementById('previewCgstRow');
+    const sgstRow = document.getElementById('previewSgstRow');
+    if (cgstRow) cgstRow.style.display = 'none';
+    if (sgstRow) sgstRow.style.display = 'none';
 
-    document.getElementById('previewTotal').textContent = formatCurrency(total);
+    document.getElementById('previewRoundOff').textContent = formatCurrency(roundOff);
+    document.getElementById('previewTotal').textContent = formatCurrency(roundedTotal);
+    document.getElementById('previewAmountPaid').textContent = formatCurrency(amountPaid);
+    document.getElementById('previewAmountPayable').textContent = formatCurrency(amountPayable);
 }
 
 function formatCurrency(amount) {
