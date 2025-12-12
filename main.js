@@ -312,22 +312,28 @@ function updatePreviewLineItems() {
     const tbody = document.getElementById('previewLineItems');
 
     if (lineItems.length === 0 || lineItems.every(item => !item.description)) {
-        tbody.innerHTML = '\u003ctr\u003e\u003ctd colspan="7" style="text-align: center; color: var(--text-tertiary); padding: var(--space-xl);"\u003eNo items added yet\u003c/td\u003e\u003c/tr\u003e';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-tertiary); padding: var(--space-xl);">No items added yet</td></tr>';
         return;
     }
 
+    const gstRate = 5.0;
+    
     tbody.innerHTML = lineItems.map((item, index) => {
-        const amount = (item.quantity || 0) * (item.rate || 0);
+        const taxableValue = (item.quantity || 0) * (item.rate || 0);
+        const taxAmount = (taxableValue * gstRate) / 100;
+        const totalAmount = taxableValue + taxAmount;
+        
         return `
-        \u003ctr\u003e
-          \u003ctd style="text-align: center;"\u003e${index + 1}\u003c/td\u003e
-          \u003ctd\u003e${item.description || ''}\u003c/td\u003e
-          \u003ctd style="text-align: center;"\u003e${item.hsn || '-'}\u003c/td\u003e
-          \u003ctd style="text-align: center;"\u003e${item.quantity || 0}\u003c/td\u003e
-          \u003ctd style="text-align: right;"\u003e${formatCurrency(item.rate || 0)}\u003c/td\u003e
-          \u003ctd style="text-align: right;"\u003e${formatCurrency(amount)}\u003c/td\u003e
-          \u003ctd style="text-align: right;"\u003e\u003cstrong\u003e${formatCurrency(amount)}\u003c/strong\u003e\u003c/td\u003e
-        \u003c/tr\u003e
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td>${item.description || ''}</td>
+          <td style="text-align: center;">${item.hsn || '-'}</td>
+          <td style="text-align: center;">${item.quantity || 0}</td>
+          <td style="text-align: right;">${formatCurrency(item.rate || 0)}</td>
+          <td style="text-align: right;">${formatCurrency(taxableValue)}</td>
+          <td style="text-align: right;">${formatCurrency(taxAmount)} (${gstRate}%)</td>
+          <td style="text-align: right;"><strong>${formatCurrency(totalAmount)}</strong></td>
+        </tr>
       `;
     }).join('');
 }
