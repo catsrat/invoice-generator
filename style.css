@@ -817,8 +817,7 @@ body::before {
 .invoice-items-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.75rem;
-  min-width: 800px;
+  font-size: 0.875rem;
 }
 
 .invoice-items-table thead {
@@ -828,19 +827,33 @@ body::before {
 }
 
 .invoice-items-table th {
-  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-xs);
+  font-size: 0.75rem;
   font-weight: 700;
   color: #374151;
   text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.invoice-items-table th:last-child,
-.invoice-items-table td:last-child {
+.invoice-items-table th:first-child {
+  text-align: center;
+}
+
+.invoice-items-table th:nth-child(3),
+.invoice-items-table th:nth-child(4) {
+  text-align: center;
+}
+
+.invoice-items-table th:nth-child(5),
+.invoice-items-table th:nth-child(6),
+.invoice-items-table th:nth-child(7),
+.invoice-items-table th:nth-child(8) {
   text-align: right;
 }
 
 .invoice-items-table td {
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-xs);
   border-bottom: 1px solid #e5e7eb;
   color: #1a1a1a;
 }
