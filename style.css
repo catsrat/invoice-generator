@@ -941,18 +941,21 @@ body::before {
 @media print {
   @page {
     size: A4;
-    margin: 0.3cm;
+    margin: 0.5cm;
   }
 
   body {
     background: white;
     padding: 0;
     margin: 0;
+    zoom: 0.8;
+    /* Force scale down to fit single page */
+    -webkit-print-color-adjust: exact;
   }
 
   .container {
     max-width: 100%;
-    padding: 5px;
+    padding: 0;
   }
 
   /* Hide everything except the invoice preview */
@@ -972,17 +975,17 @@ body::before {
     padding: 0;
     margin: 0;
     background: white;
-    page-break-inside: avoid;
   }
 
   .invoice-preview {
     box-shadow: none;
     border: none;
-    padding: 5px !important;
+    padding: 0 !important;
     min-height: auto;
     max-height: none !important;
     overflow: visible !important;
-    page-break-inside: avoid;
+    width: 100%;
+    margin: 0;
   }
 
   /* Ensure logo is visible but very small */
