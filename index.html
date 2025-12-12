@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Professional invoice generator for business owners. Create, customize, and download invoices instantly." />
+  <title>Invoice Generator - Create Professional Invoices</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Invoice Generator</h1>
+      <p id="headerSubtitle">Create professional invoices in seconds</p>
+    </header>
+
+    <div class="main-layout">
+      <!-- Invoice Form -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Invoice Details</h2>
+        </div>
+
+        <form id="invoiceForm">
+          <!-- Business Information -->
+          <div class="form-group">
+            <label class="form-label">Your Business Name</label>
+            <input type="text" id="businessName" class="form-input" placeholder="Acme Corporation" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Business Address</label>
+            <textarea id="businessAddress" class="form-textarea"
+              placeholder="123 Business St&#10;City, State 12345&#10;Country" rows="3"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" id="businessEmail" class="form-input" placeholder="hello@acme.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" id="businessPhone" class="form-input" placeholder="+1 (555) 123-4567" />
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+          <!-- Client Information -->
+          <div class="form-group">
+            <label class="form-label">Client Name</label>
+            <input type="text" id="clientName" class="form-input" placeholder="Client Company Inc." required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Client Address</label>
+            <textarea id="clientAddress" class="form-textarea"
+              placeholder="456 Client Ave&#10;City, State 67890&#10;Country" rows="3"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Client Email</label>
+              <input type="email" id="clientEmail" class="form-input" placeholder="client@company.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Client Phone</label>
+              <input type="tel" id="clientPhone" class="form-input" placeholder="+1 (555) 987-6543" />
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+          <!-- Invoice Meta -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Invoice Number</label>
+              <input type="text" id="invoiceNumber" class="form-input" placeholder="INV-001" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Invoice Date</label>
+              <input type="date" id="invoiceDate" class="form-input" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Due Date</label>
+              <input type="date" id="dueDate" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Currency</label>
+              <select id="currency" class="form-select">
+                <option value="INR" selected>INR (₹)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="AUD">AUD (A$)</option>
+                <option value="CAD">CAD (C$)</option>
+              </select>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+          <!-- Line Items -->
+          <div class="form-group">
+            <label class="form-label">Line Items</label>
+            <table class="line-items-table" id="lineItemsTable">
+              <thead>
+                <tr>
+                  <th style="width: 40%;">Description</th>
+                  <th style="width: 15%;">Quantity</th>
+                  <th style="width: 20%;">Rate</th>
+                  <th style="width: 20%;">Amount</th>
+                  <th style="width: 5%;"></th>
+                </tr>
+              </thead>
+              <tbody id="lineItemsBody">
+                <!-- Line items will be added here -->
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-secondary mt-2" id="addLineItemBtn">
+              <span>+ Add Line Item</span>
+            </button>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+          <!-- Tax and Discount -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Tax (%)</label>
+              <input type="number" id="taxRate" class="form-input" placeholder="0" min="0" max="100" step="0.01"
+                value="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Discount (%)</label>
+              <input type="number" id="discountRate" class="form-input" placeholder="0" min="0" max="100" step="0.01"
+                value="0" />
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group">
+            <label class="form-label">Notes / Payment Terms</label>
+            <textarea id="notes" class="form-textarea"
+              placeholder="Payment is due within 30 days. Thank you for your business!" rows="3"></textarea>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
+
+          <!-- Signature/Stamp Upload -->
+          <div class="form-group">
+            <label class="form-label">Signature / Stamp (Optional)</label>
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <input type="file" id="signatureUpload" accept="image/png, image/jpeg, image/jpg"
+                style="display: none;" />
+              <button type="button" class="btn btn-secondary"
+                onclick="document.getElementById('signatureUpload').click()" style="width: fit-content;">
+                📁 Upload Signature/Stamp
+              </button>
+              <div id="signaturePreviewContainer" style="display: none; margin-top: var(--space-sm);">
+                <div
+                  style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-lg); border: 1px solid var(--border-primary);">
+                  <img id="signaturePreview" src="" alt="Signature preview"
+                    style="max-width: 150px; max-height: 80px; object-fit: contain; border-radius: var(--radius-md);" />
+                  <button type="button" class="btn btn-sm" onclick="removeSignature()"
+                    style="background: var(--error-500); color: white; margin-left: auto;">
+                    ✕ Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Invoice Preview -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Preview</h2>
+        </div>
+
+        <div class="invoice-preview" id="invoicePreview">
+          <div class="invoice-header">
+            <div>
+              <h1 class="invoice-title">INVOICE</h1>
+            </div>
+            <div class="invoice-number">
+              <div class="invoice-number-label">Invoice Number</div>
+              <div class="invoice-number-value" id="previewInvoiceNumber">INV-001</div>
+            </div>
+          </div>
+
+          <div class="invoice-details">
+            <div class="invoice-section">
+              <h3>From</h3>
+              <div id="previewBusinessInfo">
+                <p><strong id="previewBusinessName">Your Business Name</strong></p>
+                <p id="previewBusinessAddress" style="white-space: pre-line;">Your Business Address</p>
+                <p id="previewBusinessEmail"></p>
+                <p id="previewBusinessPhone"></p>
+              </div>
+            </div>
+
+            <div class="invoice-section">
+              <h3>Bill To</h3>
+              <div id="previewClientInfo">
+                <p><strong id="previewClientName">Client Name</strong></p>
+                <p id="previewClientAddress" style="white-space: pre-line;">Client Address</p>
+                <p id="previewClientEmail"></p>
+                <p id="previewClientPhone"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="invoice-details">
+            <div class="invoice-section">
+              <h3>Invoice Date</h3>
+              <p id="previewInvoiceDate">-</p>
+            </div>
+            <div class="invoice-section">
+              <h3>Due Date</h3>
+              <p id="previewDueDate">-</p>
+            </div>
+          </div>
+
+          <div class="invoice-items">
+            <table class="invoice-items-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="previewLineItems">
+                <tr>
+                  <td colspan="4" style="text-align: center; color: #9ca3af; padding: var(--space-xl);">
+                    No items added yet
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="invoice-totals" id="previewTotals">
+            <div class="invoice-total-row subtotal">
+              <span>Subtotal:</span>
+              <span id="previewSubtotal">$0.00</span>
+            </div>
+            <div class="invoice-total-row subtotal" id="previewDiscountRow" style="display: none;">
+              <span>Discount (<span id="previewDiscountPercent">0</span>%):</span>
+              <span id="previewDiscount">$0.00</span>
+            </div>
+            <div class="invoice-total-row subtotal" id="previewTaxRow" style="display: none;">
+              <span>Tax (<span id="previewTaxPercent">0</span>%):</span>
+              <span id="previewTax">$0.00</span>
+            </div>
+            <div class="invoice-total-row total">
+              <span>Total:</span>
+              <span id="previewTotal">$0.00</span>
+            </div>
+          </div>
+
+          <div class="invoice-notes" id="previewNotesSection" style="display: none;">
+            <h3>Notes</h3>
+            <p id="previewNotes"></p>
+          </div>
+
+          <!-- Signature Section -->
+          <div class="invoice-signature" id="previewSignatureSection" style="display: none;">
+            <div style="text-align: right; margin-top: var(--space-xl);">
+              <p style="font-size: 0.875rem; font-weight: 600; color: #6b7280; margin-bottom: var(--space-sm);">
+                Authorized Signature</p>
+              <img id="previewSignature" src="" alt="Signature"
+                style="max-width: 200px; max-height: 100px; object-fit: contain; margin-left: auto; display: block;" />
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button type="button" class="btn btn-primary" id="downloadBtn">
+            <span>📥 Download PDF</span>
+          </button>
+          <button type="button" class="btn btn-success" id="printBtn">
+            <span>🖨️ Print Invoice</span>
+          </button>
+          <button type="button" class="btn btn-secondary" id="saveBtn">
+            <span>💾 Save Template</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
