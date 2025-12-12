@@ -262,10 +262,214 @@ body::before {
 }
 
 @media (max-width: 640px) {
+
+  /* Reduce overall spacing on mobile */
+  :root {
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.25rem;
+    --space-2xl: 1.5rem;
+    --space-3xl: 2rem;
+  }
+
+  /* Header adjustments */
+  .header {
+    padding: var(--space-lg);
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .header p {
+    font-size: 0.875rem;
+  }
+
+  /* User profile mobile optimization */
+  .user-profile {
+    flex-direction: row;
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-lg);
+    gap: var(--space-sm);
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-name {
+    font-size: 0.875rem;
+  }
+
+  .user-email {
+    font-size: 0.75rem;
+  }
+
+  .btn-logout {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.75rem;
+  }
+
+  /* Container adjustments */
+  .container {
+    padding: var(--space-md);
+  }
+
+  /* Form sections */
+  .form-section {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Form rows stack on mobile */
   .form-row {
     grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Form groups */
+  .form-group label {
+    font-size: 0.75rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 0.875rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .form-group textarea {
+    min-height: 80px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 0.875rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Line items table */
+  .line-items-table {
+    font-size: 0.75rem;
+  }
+
+  .line-items-table th,
+  .line-items-table td {
+    padding: var(--space-sm);
+  }
+
+  .line-items-table input {
+    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  /* Hide less important columns on very small screens */
+  .line-items-table th:nth-child(1),
+  .line-items-table td:nth-child(1) {
+    display: none;
+  }
+
+  /* Invoice preview */
+  .invoice-preview {
+    padding: var(--space-lg);
+  }
+
+  .invoice-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .invoice-meta {
+    font-size: 0.75rem;
+  }
+
+  .invoice-table {
+    font-size: 0.75rem;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .invoice-totals {
+    font-size: 0.875rem;
+  }
+
+  /* Signature section */
+  .signature-upload {
+    flex-direction: column;
+  }
+
+  .signature-preview {
+    max-width: 100%;
+  }
+
+  /* Login page mobile */
+  .login-container {
+    padding: var(--space-lg);
+  }
+
+  .login-card {
+    padding: var(--space-xl);
+  }
+
+  .login-title {
+    font-size: 2rem;
+  }
+
+  .login-subtitle {
+    font-size: 1rem;
+  }
+
+  .login-features {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  /* Notification positioning */
+  .notification {
+    left: var(--space-md);
+    right: var(--space-md);
+    width: auto;
   }
 }
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 375px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .form-section {
+    padding: var(--space-md);
+  }
+
+  .invoice-preview {
+    padding: var(--space-md);
+  }
+}
+
 
 /* Button Styles */
 .btn {
