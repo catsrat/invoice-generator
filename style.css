@@ -750,6 +750,8 @@ body::before {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   min-height: 600px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 
 .invoice-header {
