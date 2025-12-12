@@ -206,6 +206,16 @@ function updatePreview() {
     document.getElementById('previewBusinessPhone').textContent =
         document.getElementById('businessPhone').value;
 
+    // GST Number
+    const gstNumber = document.getElementById('gstNumber').value;
+    const gstElement = document.getElementById('previewGstNumber');
+    if (gstElement && gstNumber) {
+        gstElement.textContent = `GSTIN: ${gstNumber}`;
+        gstElement.style.display = 'block';
+    } else if (gstElement) {
+        gstElement.style.display = 'none';
+    }
+
     // Client info
     document.getElementById('previewClientName').textContent =
         document.getElementById('clientName').value || 'Client Name';
@@ -216,13 +226,66 @@ function updatePreview() {
     document.getElementById('previewClientPhone').textContent =
         document.getElementById('clientPhone').value;
 
+    // Customer GSTIN
+    const customerGstin = document.getElementById('customerGstin')?.value;
+    const customerGstinElement = document.getElementById('previewCustomerGstin');
+    if (customerGstinElement && customerGstin) {
+        customerGstinElement.textContent = `GSTIN: ${customerGstin}`;
+        customerGstinElement.style.display = 'block';
+    } else if (customerGstinElement) {
+        customerGstinElement.style.display = 'none';
+    }
+
+    // Place of Supply
+    const placeOfSupply = document.getElementById('placeOfSupply')?.value;
+    const placeElement = document.getElementById('previewPlaceOfSupply');
+    if (placeElement && placeOfSupply) {
+        placeElement.textContent = `Place of Supply: ${placeOfSupply}`;
+        placeElement.style.display = 'block';
+    } else if (placeElement) {
+        placeElement.style.display = 'none';
+    }
+
     // Invoice meta
     document.getElementById('previewInvoiceNumber').textContent =
         document.getElementById('invoiceNumber').value || 'INV-001';
     document.getElementById('previewInvoiceDate').textContent =
         formatDate(document.getElementById('invoiceDate').value);
-    document.getElementById('previewDueDate').textContent =
-        formatDate(document.getElementById('dueDate').value);
+    const dueDateElement = document.getElementById('previewDueDate');
+    if (dueDateElement) {
+        dueDateElement.textContent = formatDate(document.getElementById('dueDate').value);
+    }
+
+    // Display business profile data if available
+    if (businessProfile) {
+        // Logo
+        const logoElement = document.getElementById('previewLogo');
+        if (logoElement && businessProfile.company_logo_url) {
+            logoElement.src = businessProfile.company_logo_url;
+            logoElement.style.display = 'block';
+        }
+
+        // UPI QR and Bank Details
+        const paymentSection = document.getElementById('paymentSection');
+        if (paymentSection && (businessProfile.upi_qr_code_url || businessProfile.bank_name)) {
+            paymentSection.style.display = 'block';
+
+            // UPI QR
+            const upiQrElement = document.getElementById('previewUpiQr');
+            if (upiQrElement && businessProfile.upi_qr_code_url) {
+                upiQrElement.src = businessProfile.upi_qr_code_url;
+                upiQrElement.parentElement.style.display = 'block';
+            }
+
+            // Bank Details
+            if (businessProfile.bank_name) {
+                document.getElementById('previewBankName').textContent = businessProfile.bank_name || '';
+                document.getElementById('previewBankAccount').textContent = businessProfile.bank_account_number || '';
+                document.getElementById('previewBankIfsc').textContent = businessProfile.bank_ifsc_code || '';
+                document.getElementById('previewBankBranch').textContent = businessProfile.bank_branch || '';
+            }
+        }
+    }
 
     // Line items
     updatePreviewLineItems();
@@ -233,11 +296,13 @@ function updatePreview() {
     // Notes
     const notes = document.getElementById('notes').value;
     const notesSection = document.getElementById('previewNotesSection');
-    if (notes) {
-        notesSection.style.display = 'block';
-        document.getElementById('previewNotes').textContent = notes;
-    } else {
-        notesSection.style.display = 'none';
+    if (notesSection) {
+        if (notes) {
+            notesSection.style.display = 'block';
+            document.getElementById('previewNotes').textContent = notes;
+        } else {
+            notesSection.style.display = 'none';
+        }
     }
 
     // Signature
@@ -248,29 +313,24 @@ function updatePreviewLineItems() {
     const tbody = document.getElementById('previewLineItems');
 
     if (lineItems.length === 0 || lineItems.every(item => !item.description)) {
-        tbody.innerHTML = `
-      <tr>
-        <td colspan="4" style="text-align: center; color: #9ca3af; padding: var(--space-xl);">
-          No items added yet
-        </td>
-      </tr>
-    `;
+        tbody.innerHTML = '\u003ctr\u003e\u003ctd colspan="7" style="text-align: center; color: var(--text-tertiary); padding: var(--space-xl);"\u003eNo items added yet\u003c/td\u003e\u003c/tr\u003e';
         return;
     }
 
-    tbody.innerHTML = lineItems
-        .filter(item => item.description)
-        .map(item => {
-            const amount = (item.quantity || 0) * (item.rate || 0);
-            return `
-        <tr>
-          <td>${item.description}</td>
-          <td>${item.quantity || 0}</td>
-          <td>${formatCurrency(item.rate || 0)}</td>
-          <td>${formatCurrency(amount)}</td>
-        </tr>
+    tbody.innerHTML = lineItems.map((item, index) => {
+        const amount = (item.quantity || 0) * (item.rate || 0);
+        return `
+        \u003ctr\u003e
+          \u003ctd style="text-align: center;"\u003e${index + 1}\u003c/td\u003e
+          \u003ctd\u003e${item.description || ''}\u003c/td\u003e
+          \u003ctd style="text-align: center;"\u003e${item.hsn || '-'}\u003c/td\u003e
+          \u003ctd style="text-align: center;"\u003e${item.quantity || 0}\u003c/td\u003e
+          \u003ctd style="text-align: right;"\u003e${formatCurrency(item.rate || 0)}\u003c/td\u003e
+          \u003ctd style="text-align: right;"\u003e${formatCurrency(amount)}\u003c/td\u003e
+          \u003ctd style="text-align: right;"\u003e\u003cstrong\u003e${formatCurrency(amount)}\u003c/strong\u003e\u003c/td\u003e
+        \u003c/tr\u003e
       `;
-        }).join('');
+    }).join('');
 }
 
 function updateTotals() {
