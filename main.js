@@ -274,7 +274,7 @@ function updatePreview() {
             const upiQrElement = document.getElementById('previewUpiQr');
             if (upiQrElement && businessProfile.upi_qr_code_url) {
                 upiQrElement.src = businessProfile.upi_qr_code_url;
-                upiQrElement.parentElement.style.display = 'block';
+                upiQrElement.style.display = 'block';
             }
 
             // Bank Details
