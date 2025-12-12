@@ -700,6 +700,9 @@ async function loadBusinessProfile() {
         if (error && error.code !== 'PGRST116') throw error;
         if (!data) return;
 
+        // Store business profile for use in updatePreview
+        businessProfile = data;
+
         // Auto-fill business information
         document.getElementById('businessName').value = data.company_name || '';
         document.getElementById('gstNumber').value = data.gst_number || '';
