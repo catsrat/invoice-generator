@@ -351,7 +351,6 @@ body::before {
   .form-group textarea {
     min-height: 60px !important;
     max-height: 60px;
-    rows: 2;
   }
 
   /* Buttons */
