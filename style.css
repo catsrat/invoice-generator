@@ -948,9 +948,13 @@ body::before {
     background: white;
     padding: 0;
     margin: 0;
-    zoom: 0.8;
-    /* Force scale down to fit single page */
+    /* Use transform for better cross-browser compatibility */
+    width: 115%;
+    /* Compensate for scale down */
+    transform: scale(0.85);
+    transform-origin: top left;
     -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .container {
