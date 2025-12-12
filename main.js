@@ -105,16 +105,16 @@ function addInitialLineItem() {
     addLineItem();
 }
 
-function removeLineItem(id) {
-    lineItems = lineItems.filter(item => item.id !== id);
+function removeLineItem(index) {
+    lineItems.splice(index, 1);
     renderLineItems();
     updatePreview();
 }
 
-function updateLineItem(id, field, value) {
-    const item = lineItems.find(item => item.id === id);
-    if (item) {
-        item[field] = value;
+function updateLineItem(index, field, value) {
+    if (lineItems[index]) {
+        lineItems[index][field] = value;
+        renderLineItems(); // Re-render to update the amount column
         updatePreview();
     }
 }
