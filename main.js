@@ -121,57 +121,69 @@ function updateLineItem(id, field, value) {
 
 function renderLineItems() {
     const tbody = document.getElementById('lineItemsBody');
+    tbody.innerHTML = '';
 
-    if (lineItems.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-tertiary); padding: var(--space-xl);">No line items added</td></tr>';
-        return;
-    }
+    lineItems.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <input 
+                    type="text" 
+                    class="form-input" 
+                    placeholder="Item description" 
+                    value="${item.description || ''}"
+                    onchange="updateLineItem(${index}, 'description', this.value)"
+                />
+            </td>
+            <td>
+                <input 
+                    type="text" 
+                    class="form-input" 
+                    placeholder="HSN/SAC" 
+                    value="${item.hsn || ''}"
+                    onchange="updateLineItem(${index}, 'hsn', this.value)"
+                />
+            </td>
+            <td>
+                <input 
+                    type="number" 
+                    class="form-input" 
+                    placeholder="1" 
+                    min="0"
+                    step="1"
+                    value="${item.quantity || 1}"
+                    onchange="updateLineItem(${index}, 'quantity', parseFloat(this.value) || 0)"
+                />
+            </td>
+            <td>
+                <input 
+                    type="number" 
+                    class="form-input" 
+                    placeholder="0.00" 
+                    min="0"
+                    step="0.01"
+                    value="${item.rate || 0}"
+                    onchange="updateLineItem(${index}, 'rate', parseFloat(this.value) || 0)"
+                />
+            </td>
+            <td style="text-align: right; padding-right: var(--space-md);">
+                ${currencySymbols[currentCurrency]}${((item.quantity || 0) * (item.rate || 0)).toFixed(2)}
+            </td>
+            <td>
+                <button 
+                    type="button" 
+                    class="btn-icon" 
+                    onclick="removeLineItem(${index})"
+                    title="Remove item"
+                >
+                    ✕
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
 
-    tbody.innerHTML = lineItems.map(item => `
-    <tr data-id="${item.id}">
-      <td>
-        <input 
-          type="text" 
-          value="${item.description}" 
-          placeholder="Service or product description"
-          onchange="updateLineItem(${item.id}, 'description', this.value)"
-        />
-      </td>
-      <td>
-        <input 
-          type="number" 
-          value="${item.quantity}" 
-          min="1"
-          step="1"
-          onchange="updateLineItem(${item.id}, 'quantity', parseFloat(this.value) || 1)"
-        />
-      </td>
-      <td>
-        <input 
-          type="number" 
-          value="${item.rate}" 
-          min="0"
-          step="0.01"
-          placeholder="0.00"
-          onchange="updateLineItem(${item.id}, 'rate', parseFloat(this.value) || 0)"
-        />
-      </td>
-      <td style="text-align: right; padding-right: var(--space-md);">
-        <strong>${formatCurrency((item.quantity || 0) * (item.rate || 0))}</strong>
-      </td>
-      <td>
-        <button 
-          type="button" 
-          class="btn btn-icon btn-sm" 
-          onclick="removeLineItem(${item.id})"
-          style="background: var(--error-500); color: white;"
-          title="Remove item"
-        >
-          ×
-        </button>
-      </td>
-    </tr>
-  `).join('');
+    updatePreview();
 }
 
 function updatePreview() {

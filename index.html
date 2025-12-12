@@ -81,6 +81,18 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Customer GSTIN (Optional)</label>
+              <input type="text" id="customerGstin" class="form-input" placeholder="37DBEJP4721D1Z2"
+                pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Place of Supply</label>
+              <input type="text" id="placeOfSupply" class="form-input" placeholder="Tamil Nadu" required />
+            </div>
+          </div>
+
           <hr style="border: none; border-top: 1px solid var(--border-primary); margin: var(--space-xl) 0;" />
 
           <!-- Invoice Meta -->
@@ -122,11 +134,12 @@
             <table class="line-items-table" id="lineItemsTable">
               <thead>
                 <tr>
-                  <th style="width: 40%;">Description</th>
-                  <th style="width: 15%;">Quantity</th>
-                  <th style="width: 20%;">Rate</th>
-                  <th style="width: 20%;">Amount</th>
-                  <th style="width: 5%;"></th>
+                  <th style="width: 35%;">Description</th>
+                  <th style="width: 12%;">HSN/SAC</th>
+                  <th style="width: 12%;">Quantity</th>
+                  <th style="width: 15%;">Rate</th>
+                  <th style="width: 18%;">Amount</th>
+                  <th style="width: 8%;"></th>
                 </tr>
               </thead>
               <tbody id="lineItemsBody">
