@@ -289,21 +289,52 @@
           </div>
 
           <div class="invoice-totals" id="previewTotals">
-            <div class="invoice-total-row subtotal">
-              <span>Subtotal:</span>
-              <span id="previewSubtotal">$0.00</span>
-            </div>
-            <div class="invoice-total-row subtotal" id="previewDiscountRow" style="display: none;">
-              <span>Discount (<span id="previewDiscountPercent">0</span>%):</span>
-              <span id="previewDiscount">$0.00</span>
-            </div>
-            <div class="invoice-total-row subtotal" id="previewTaxRow" style="display: none;">
-              <span>Tax (<span id="previewTaxPercent">0</span>%):</span>
-              <span id="previewTax">$0.00</span>
-            </div>
-            <div class="invoice-total-row total">
-              <span>Total:</span>
-              <span id="previewTotal">$0.00</span>
+            <div style="display: flex; justify-content: flex-end; margin-top: var(--space-xl);">
+              <div style="min-width: 300px;">
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border-primary);">
+                  <span>Taxable Amount:</span>
+                  <span id="previewSubtotal">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border-primary);"
+                  id="previewIgstRow">
+                  <span>IGST @ <span id="previewIgstRate">5.0</span>%:</span>
+                  <span id="previewIgst">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border-primary);"
+                  id="previewCgstRow" style="display: none;">
+                  <span>CGST @ <span id="previewCgstRate">2.5</span>%:</span>
+                  <span id="previewCgst">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border-primary);"
+                  id="previewSgstRow" style="display: none;">
+                  <span>SGST @ <span id="previewSgstRate">2.5</span>%:</span>
+                  <span id="previewSgst">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border-primary);">
+                  <span>Round Off:</span>
+                  <span id="previewRoundOff">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-md) 0; border-bottom: 2px solid var(--border-primary); font-weight: 700; font-size: 1.125rem;">
+                  <span>Total:</span>
+                  <span id="previewTotal">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; margin-top: var(--space-md);">
+                  <span>Amount Paid:</span>
+                  <span id="previewAmountPaid">₹0.00</span>
+                </div>
+                <div
+                  style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; font-weight: 600; color: var(--primary-400);">
+                  <span>Amount Payable:</span>
+                  <span id="previewAmountPayable">₹0.00</span>
+                </div>
+              </div>
             </div>
           </div>
 
